@@ -4,12 +4,14 @@ import 'package:weather_app/Models/weathers_model.dart';
 
 class WeatherController extends ChangeNotifier {
   WeatherModel? weather;
+  String city = "";
 
   WeatherController() {
     fetchWeatherData();
   }
-  void fetchWeatherData() async {
+  Future<WeatherModel> fetchWeatherData() async {
     weather = await ApiHelper.apiHelper.weatherApiHelper();
     notifyListeners();
+    return weather!;
   }
 }
