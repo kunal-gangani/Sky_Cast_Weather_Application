@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/Controllers/weather_controller.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:weather_app/Models/weathers_model.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -97,6 +98,7 @@ class HomePage extends StatelessWidget {
                             ),
                           );
                         } else if (snapshot.hasData) {
+                          WeatherModel? data = snapshot.data;
                           return Column(
                             children: [
                               Padding(
@@ -129,13 +131,16 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                         style: const TextStyle(
-                                            color: Colors.white),
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
                                     ElevatedButton(
                                       onPressed: () {},
-                                      child: const Text("Search"),
+                                      child: const Text(
+                                        "Search",
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -146,7 +151,7 @@ class HomePage extends StatelessWidget {
                               Column(
                                 children: [
                                   Text(
-                                    "${value.weather!.location.name}, ${value.weather!.location.region}",
+                                    "${data?.location.name}, ${data?.location.region}",
                                     style: TextStyle(
                                       fontSize: 32.sp,
                                       fontWeight: FontWeight.bold,
@@ -157,7 +162,7 @@ class HomePage extends StatelessWidget {
                                     height: 8.h,
                                   ),
                                   Text(
-                                    "${value.weather?.location.localtime}",
+                                    "${data?.location.localtime}",
                                     style: TextStyle(
                                       fontSize: 16.sp,
                                       color: Colors.white.withOpacity(0.8),
@@ -175,7 +180,7 @@ class HomePage extends StatelessWidget {
                                     height: 20.h,
                                   ),
                                   Text(
-                                    '${value.weather!.current.tempC}°C',
+                                    '${data?.current.tempC}°C',
                                     style: TextStyle(
                                       fontSize: 72.sp,
                                       fontWeight: FontWeight.w300,
@@ -186,7 +191,7 @@ class HomePage extends StatelessWidget {
                                     height: 10.h,
                                   ),
                                   Text(
-                                    value.weather!.current.condition.text,
+                                    "${data?.current.condition.text}",
                                     style: TextStyle(
                                       fontSize: 24.sp,
                                       fontWeight: FontWeight.w500,
