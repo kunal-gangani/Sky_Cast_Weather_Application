@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:weather_app/Controllers/weather_controller.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:weather_app/Models/weathers_model.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -257,8 +258,7 @@ class HomePage extends StatelessWidget {
                                           itemCount: data.forecast
                                               .forecastday[0].hour.length,
                                           itemBuilder: (context, index) {
-                                            final hour = data.forecast
-                                                .forecastday[0].hour[index];
+                                           List<dynamic> hour = WeatherModel.;
 
                                             return Padding(
                                               padding:

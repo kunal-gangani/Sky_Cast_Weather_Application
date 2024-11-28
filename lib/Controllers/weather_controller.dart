@@ -12,7 +12,6 @@ class WeatherController extends ChangeNotifier {
     log("WEATHER METHOD IS CALLED....");
     weather = await ApiHelper.apiHelper.weatherApiHelper();
 
-    log("DATA : ${weather?.location.name}");
     return weather;
   }
 }
