@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:weather_app/Controllers/weather_controller.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:weather_app/Models/weathers_model.dart';
-import 'package:flutter/widgets.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -101,20 +100,616 @@ class HomePage extends StatelessWidget {
                           );
                         } else if (snapShot.hasData) {
                           WeatherModel? data = snapShot.data;
-                          return Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 10,
+                          return SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                // Search Section
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 10,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: TextField(
+                                          controller: searchController,
+                                          decoration: InputDecoration(
+                                            hintText: 'Search for a city',
+                                            hintStyle: TextStyle(
+                                              color:
+                                                  Colors.white.withOpacity(0.8),
+                                              fontSize: 18.sp,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                Colors.white.withOpacity(0.15),
+                                            prefixIcon: const Icon(
+                                              Icons.search,
+                                              color: Colors.white,
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              borderSide: BorderSide.none,
+                                            ),
+                                          ),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.sp,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 8.w,
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () {},
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                            vertical: 12,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Search",
+                                          style: TextStyle(
+                                            fontSize: 16.sp,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
+
+                                // Main Content Section (Location and Weather)
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                if (data != null) ...[
+                                  Column(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "${data.location.name},",
+                                                style: TextStyle(
+                                                  fontSize: 32.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              Text(
+                                                data.location.region,
+                                                style: TextStyle(
+                                                  fontSize: 26.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 8.h,
+                                              ),
+                                              Text(
+                                                data.location.localtime,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.white
+                                                      .withOpacity(0.8),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16),
+                                          child: Column(
+                                            children: [
+                                              Icon(
+                                                data.current.condition.text
+                                                        .toString()
+                                                        .toLowerCase()
+                                                        .contains("sunny")
+                                                    ? Icons.sunny
+                                                    : Icons.cloud,
+                                                color: data
+                                                        .current.condition.text
+                                                        .toString()
+                                                        .toLowerCase()
+                                                        .contains("sunny")
+                                                    ? Colors.yellow
+                                                    : Colors.white,
+                                                size: 100,
+                                              ),
+                                              SizedBox(height: 20.h),
+                                              Text(
+                                                '${data.current.tempC}°C',
+                                                style: TextStyle(
+                                                  fontSize: 65.sp,
+                                                  fontWeight: FontWeight.w300,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              SizedBox(height: 10.h),
+                                              Text(
+                                                "${textValues.reverse[data.current.condition.text] ?? data.current.condition.text}",
+                                                style: TextStyle(
+                                                  fontSize: 24.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Card(
+                                        margin: const EdgeInsets.symmetric(
+                                          vertical: 10,
+                                        ),
+                                        elevation: 15,
+                                        color: Colors.white.withOpacity(0.1),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            gradient: const LinearGradient(
+                                              colors: [
+                                                Colors.blueAccent,
+                                                Colors.lightBlue
+                                              ],
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Humidity: ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${data.current.humidity}%",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Wind Speed: ",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                            Text(
+                                                              "${data.current.windKph} km/h",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "UV Index: ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${data.current.uv}",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        // Adding more data
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Cloudiness: ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${data.current.cloud}%",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Latitude :",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${data.location.lat}",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Wind Chill: ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${data.current.windchillC}%",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Feels Like: ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${data.current.feelslikeC}°C",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Pressure: ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${data.current.pressureMb} mb",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Visibility: ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${data.current.visKm} km",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Temp (F): ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${(data.current.tempF)}°F",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Longitude: ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              "${data.location.lon}",
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            const Text(
+                                                              "Time Zone: ",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              data.location.tzId,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Card(
+                                        margin: const EdgeInsets.symmetric(
+                                          vertical: 10,
+                                        ),
+                                        elevation: 15,
+                                        color: Colors.white.withOpacity(0.1),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            gradient: const LinearGradient(
+                                              colors: [
+                                                Colors.blueAccent,
+                                                Colors.lightBlue
+                                              ],
+                                              begin: Alignment.topLeft,
+                                              end: Alignment.bottomRight,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Column(
+                                              children: [
+                                                const Text(
+                                                  'Forecast for the Next Hours',
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10.h,
+                                                ),
+                                                SizedBox(
+                                                  height: 150.h,
+                                                  child: ListView.builder(
+                                                    itemCount: data
+                                                        .forecast
+                                                        .forecastday[0]
+                                                        .hour
+                                                        .length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      var hour = data
+                                                          .forecast
+                                                          .forecastday[0]
+                                                          .hour[index];
+                                                      return Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                          vertical: 8.0,
+                                                        ),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              "${hour.time}",
+                                                              style:
+                                                                  const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            Icon(
+                                                              hour.condition
+                                                                      .text
+                                                                      .toString()
+                                                                      .toLowerCase()
+                                                                      .contains(
+                                                                          "sunny")
+                                                                  ? Icons.sunny
+                                                                  : Icons.cloud,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            Text(
+                                                              "${hour.tempC}°C",
+                                                              style:
+                                                                  const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ],
+                            ),
+                          );
+                        }
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 10,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Shimmer.fromColors(
+                                      baseColor: Colors.white.withOpacity(0.6),
+                                      highlightColor:
+                                          Colors.white.withOpacity(0.9),
                                       child: TextField(
-                                        controller: searchController,
                                         decoration: InputDecoration(
-                                          hintText: 'Search for a city',
                                           hintStyle: TextStyle(
                                             color:
                                                 Colors.white.withOpacity(0.8),
@@ -135,213 +730,6 @@ class HomePage extends StatelessWidget {
                                         style: const TextStyle(
                                           color: Colors.white,
                                         ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 8.w,
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                        "Search",
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              if (data != null) ...[
-                                Column(
-                                  children: [
-                                    Text(
-                                      "${data.location.name},",
-                                      style: TextStyle(
-                                        fontSize: 32.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    Text(
-                                      data.location.region,
-                                      style: TextStyle(
-                                        fontSize: 26.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 8.h,
-                                    ),
-                                    // Local Time
-                                    Text(
-                                      data.location.localtime,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white.withOpacity(0.8),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 40.h,
-                                    ),
-                                    Icon(
-                                      data.current.condition.text
-                                              .toLowerCase()
-                                              .contains("sunny")
-                                          ? Icons.sunny
-                                          : Icons.cloud,
-                                      color: data.current.condition.text
-                                              .toLowerCase()
-                                              .contains("sunny")
-                                          ? Colors.yellow
-                                          : Colors.white,
-                                      size: 100,
-                                    ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    // Temperature
-                                    Text(
-                                      '${data.current.tempC}°C',
-                                      style: TextStyle(
-                                        fontSize: 65.sp,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    // Weather Condition
-                                    Text(
-                                      data.current.condition.text,
-                                      style: TextStyle(
-                                        fontSize: 24.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                // Forecast Section
-                                Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.1),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      const Text(
-                                        'Forecast for the Next Hours',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      SizedBox(
-                                        height: 150.h,
-                                        child: ListView.builder(
-                                          itemCount: data.forecast
-                                              .forecastday[0].hour.length,
-                                          itemBuilder: (context, index) {
-                                           List<dynamic> hour = WeatherModel.;
-
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                vertical: 8.0,
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    , 
-                                                    style: const TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                      
-                                                  Text(
-                                                    hour.condition.text,
-                                                    style: const TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                  // Display the temperature
-                                                  Text(
-                                                    '${hour.tempC}°C',
-                                                    style: const TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ] else ...[
-                                Center(
-                                  child: Text(
-                                    'No data available. Please search for a city.',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18.sp,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ],
-                          );
-                        }
-                        return Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 10,
-                              ),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Shimmer.fromColors(
-                                      baseColor: Colors.white.withOpacity(0.6),
-                                      highlightColor:
-                                          Colors.white.withOpacity(0.9),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                          hintStyle: TextStyle(
-                                              color: Colors.white
-                                                  .withOpacity(0.8)),
-                                          filled: true,
-                                          fillColor:
-                                              Colors.white.withOpacity(0.2),
-                                          prefixIcon: const Icon(Icons.search,
-                                              color: Colors.white),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                        ),
-                                        style: const TextStyle(
-                                            color: Colors.white),
                                       ),
                                     ),
                                   ),
