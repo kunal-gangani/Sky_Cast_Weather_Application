@@ -9,7 +9,7 @@ class ApiHelper {
 
   Future<WeatherModel?> weatherApiHelper() async {
     Uri url = Uri.parse(
-        "http://api.weatherapi.com/v1/current.json?key=6aaa7a39609d43d680c71129242511&q=Surat");
+        "http://api.weatherapi.com/v1/forecast.json?key=6aaa7a39609d43d680c71129242511&q=Rajkot");
 
     http.Response res = await http.get(url);
 
