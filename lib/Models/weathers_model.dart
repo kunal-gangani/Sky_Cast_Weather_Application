@@ -39,7 +39,7 @@ class Current {
   double windMph;
   double windKph;
   int windDegree;
-  WindDir windDir;
+  WindDir? windDir;
   double pressureMb;
   double pressureIn;
   double precipMm;
@@ -120,7 +120,7 @@ class Current {
         windMph: json["wind_mph"]?.toDouble(),
         windKph: json["wind_kph"]?.toDouble(),
         windDegree: json["wind_degree"],
-        windDir: windDirValues.map[json["wind_dir"]]!,
+        windDir: windDirValues.map[json["wind_dir"]],
         pressureMb: json["pressure_mb"],
         pressureIn: json["pressure_in"]?.toDouble(),
         precipMm: json["precip_mm"],
@@ -190,8 +190,8 @@ class Current {
 }
 
 class Condition {
-  WeatherText text;
-  WeatherIcon icon;
+  WeatherText? text;
+  WeatherIcon? icon;
   int code;
 
   Condition({
@@ -206,8 +206,8 @@ class Condition {
   String toRawJson() => json.encode(toJson());
 
   factory Condition.fromJson(Map<String, dynamic> json) => Condition(
-        text: textValues.map[json["text"]]!,
-        icon: iconValues.map[json["icon"]]!,
+        text: textValues.map[json["text"]],
+        icon: iconValues.map[json["icon"]],
         code: json["code"],
       );
 
