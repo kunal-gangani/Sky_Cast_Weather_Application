@@ -38,7 +38,8 @@ A Flutter application that provides real-time weather forecasts for any city usi
 ## State Management 🧑‍💻
     ### This app uses the Provider package for managing the state efficiently. It ensures the UI updates seamlessly with changes in weather data.
 
-## Code Structure 📂lib/
+## Code Structure 📂
+lib/
 ├── main.dart
 ├── models/
 │   └── weather_model.dart
@@ -54,5 +55,11 @@ A Flutter application that provides real-time weather forecasts for any city usi
 │   └── search_bar.dart
 └── utils/
     └── constants.dart
+
+## Dependencies 📦
+
+### Provider: State management
+##### http: API calls
+##### Add these dependencies to your pubspec.yaml file:
 
 
