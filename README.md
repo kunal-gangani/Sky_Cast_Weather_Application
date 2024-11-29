@@ -20,10 +20,10 @@ A Flutter application that provides real-time weather forecasts for any city usi
    cd flutter_weather_app
 
 2. Install the required dependencies
-    flutter pub get
+    ### flutter pub get
 
 3. Run the app
-    flutter run
+    ### flutter run
 
 ## Api Usage 🌐
     ### The application uses the WeatherAPI for fetching weather data. You can register at WeatherAPI to get your free API key.
@@ -38,8 +38,7 @@ A Flutter application that provides real-time weather forecasts for any city usi
 ## State Management 🧑‍💻
     ### This app uses the Provider package for managing the state efficiently. It ensures the UI updates seamlessly with changes in weather data.
 
-## Code Structure 📂
-lib/
+## Code Structure 📂lib/
 ├── main.dart
 ├── models/
 │   └── weather_model.dart
@@ -55,4 +54,5 @@ lib/
 │   └── search_bar.dart
 └── utils/
     └── constants.dart
+
 
