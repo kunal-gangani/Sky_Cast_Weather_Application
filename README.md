@@ -32,29 +32,25 @@ A Flutter application that provides real-time weather forecasts for any city usi
     http://api.weatherapi.com/v1/forecast.json?key=YOUR_API_KEY&q=$city
 
 ## Screen Shots
+  ### Splash Screen
+  <img src = "https://github.com/user-attachments/assets/b310bb70-3212-4ec0-87ee-23b03ff29b40" height = "400em">
+
+  ### Home Page
+  <img src = "https://github.com/user-attachments/assets/bb2a73e0-64f8-4db8-aafd-10930c5aca92" height="400em">
+  <img src = "https://github.com/user-attachments/assets/0b851795-c855-4a91-82ea-a433da583cdd" height="400em">
+  <img src = "https://github.com/user-attachments/assets/d8b52363-c02f-474f-a1c0-32247b51b6f3" height="400em">
+  <img src = "https://github.com/user-attachments/assets/30887fbc-0f9e-4eaf-816c-c6c44b616516" height="400em">
+  <img src = "https://github.com/user-attachments/assets/422add9c-47f5-4f1c-a4dd-2aa0724d3d9a" height="400em">(
+  <img src = "https://github.com/user-attachments/assets/32331572-e66c-45f6-9c68-9320f3fdf608" height="400em">
+
+## Outputs
+https://github.com/user-attachments/assets/12784af3-7cc1-47ea-acb8-e036748810b9
 
 
 
 ## State Management 🧑‍💻
     ### This app uses the Provider package for managing the state efficiently. It ensures the UI updates seamlessly with changes in weather data.
 
-## Code Structure 📂
-lib/
-├── main.dart
-├── models/
-│   └── weather_model.dart
-├── providers/
-│   └── weather_provider.dart
-├── services/
-│   └── weather_service.dart
-├── screens/
-│   ├── home_screen.dart
-│   ├── weather_detail_screen.dart
-├── widgets/
-│   ├── weather_card.dart
-│   └── search_bar.dart
-└── utils/
-    └── constants.dart
 
 ## Dependencies 📦
 
